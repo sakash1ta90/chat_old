@@ -7,7 +7,8 @@ $(() => {
         $.get('bbs.php', {
             user: $('#user').val(),
             message: $('#message').val(),
-            mode: 0 // 書き込み
+            mode: 0, // 書き込み
+            type: 'html'
         }, data => {
             $('#result').html(data);
             // scTarget();
@@ -22,7 +23,8 @@ $(() => {
 const loadLog = () => {
     $.get('bbs.php', {
         user: $('#user').val(),
-        mode: 1 // 読み込み
+        mode: 1, // 読み込み
+        type: 'html'
     }, data => {
         $('#result').html(data);
         // scTarget();
