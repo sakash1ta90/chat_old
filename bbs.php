@@ -19,19 +19,9 @@ if ('0' == $_GET['mode']) {
         exit();
     }
     fclose($fp);
-
-    echo getRenderHtmlFromLog();
-} elseif ('1' == $_GET['mode']) {
-    echo getRenderHtmlFromLog();
 }
-
-/**
- * 出力用HTML作成処理
- *
- * @return string
- */
-function getRenderHtmlFromLog(): string
-{
+if ('1' === $_GET['mode'] || '0' === $_GET['mode']) {
+    // モードが一致する場合、出力用HTML作成処理
     if (!$fp = fopen(LOG_FILE, 'r')) {
         return 'could not open';
     }
@@ -43,5 +33,5 @@ function getRenderHtmlFromLog(): string
         $ret .= sprintf(RESPONSE_VIEW, $target, $getAry['user'], $target, $getAry['message']) . PHP_EOL;
     }
     fclose($fp);
-    return $ret;
+    echo $ret;
 }
