@@ -13,14 +13,18 @@
 		<br class="clear_balloon"/>
 		<div id="end"></div>
 	</div>
-	<div id="inputField">
-		<p>
-			Name: <input type="text" name="user" id="user">
-			Message: <input type="text" name="message" id="message">
-			<input type="button" id="greet" value="send">
-		</p>
+	<table id="inputField">
+		<tr>
+			<th>Name:</th><td><input type="text" name="user" id="user"></td>
+		</tr>
+		<tr>
+			<th>Message:</th><td><input type="text" name="message" id="message"></td>
+		</tr>
+		<tr>
+			<td colspan="2"><input type="button" id="greet" value="send"></td>
+		</tr>
 		<p id="message_error"></p>
-	</div>
+	</table>
 	</div>
 	<script src="./js/jquery-2.1.4.min.js"></script>
 	<script src="./js/main.js"></script>

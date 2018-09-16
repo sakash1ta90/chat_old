@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+define('RESPONSE_VIEW', '<div class="%s_user">%s</div><div class="%s_balloon">%s</div>');
 
 define('LOG_FILE', 'chat.log');
 if ('0' == $_GET['mode']) {
@@ -38,11 +39,8 @@ function getRenderHtmlFromLog(): string
     $ret = '';
     while (!feof($fp) && false !== $get = fgets($fp)) {
         $getAry = json_decode($get, true);
-        if ($_GET['user'] == $getAry['user']) {
-            $ret .= "<div class='user_right'>{$getAry['user']}</div><div class='right_balloon'>{$getAry['message']}</div>\n";
-        } else {
-            $ret .= "<div class='user'>{$getAry['user']}</div><div class='left_balloon'>{$getAry['message']}</div>\n";
-        }
+        $target = $_GET['user'] == $getAry['user'] ? 'right' : 'left';
+        $ret .= sprintf(RESPONSE_VIEW, $target, $getAry['user'], $target, $getAry['message']) . PHP_EOL;
     }
     fclose($fp);
     return $ret;
