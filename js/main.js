@@ -14,9 +14,7 @@ $(() => {
         $('#talkField').animate({scrollTop: $('#end').offset().top}, 'fast');
 
         // ポーリング
-        setTimeout(() => {
-            reloadLog();
-        }, 5000); // リロード時間はここで調整
+        setTimeout(reloadLog, 5000); // リロード時間はここで調整
     };
 
     // 投稿ボタンクリック
