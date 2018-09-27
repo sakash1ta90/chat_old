@@ -9,40 +9,29 @@ $(() => {
             message: $('#message').val(),
             mode: 0, // 書き込み
             type: 'html'
-        }, data => {
-            $('#result').html(data);
-            // scTarget();
-        });
+        }, replace);
+        $('#message').val('');
     });
-    $('#message').val('');
-    loadLog();
+
+    // 一定間隔でログをリロードする
+    const logAll = () => {
+        // ログリロード処理
+        $.get('bbs.php', {
+            user: $('#user').val(),
+            mode: 1, // 読み込み
+            type: 'html'
+        }, replace);
+
+        // ポーリング
+        setTimeout(() => {
+            logAll();
+        }, 5000); // リロード時間はここで調整
+    };
+
+    // 取得したHTMLでチャットを更新する
+    const replace = data => {
+        $('#result').html(data);
+    };
+
     logAll();
 });
-
-// ログをロードする
-const loadLog = () => {
-    $.get('bbs.php', {
-        user: $('#user').val(),
-        mode: 1, // 読み込み
-        type: 'html'
-    }, data => {
-        $('#result').html(data);
-        // scTarget();
-    });
-};
-
-// 一定間隔でログをリロードする
-const logAll = () => {
-    setTimeout(() => {
-        loadLog();
-        logAll();
-    }, 5000); // リロード時間はここで調整
-};
-
-// 画面を最下部へ移動させる
-// const scTarget = () => {
-//     $("#talkField").animate({
-//         scrollTop: $("#end").offset().top
-//     }, 0, "swing"); //swingで0が良さそう
-//     return false;
-// };
