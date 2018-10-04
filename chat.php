@@ -54,13 +54,13 @@ new class
         $this->message = filter_input(INPUT_GET, 'message', FILTER_SANITIZE_ENCODED);
 
         // ファイルをオープンできたか
-        if (!$fp = fopen(self::LOG_FILE, 'a+')) {
+        if (!$fp = fopen(self::LOG_FILE, 'a')) {
             return 'could not open';
         }
         // 書き込みできたか
         $logJson = json_encode([
-                'user' => htmlspecialchars($this->user, ENT_QUOTES, 'utf-8'),
-                'message' => htmlspecialchars($this->message, ENT_QUOTES, 'utf-8'),
+                'user' => $this->user,
+                'message' => $this->message,
                 'date' => time()
             ], JSON_UNESCAPED_UNICODE) . PHP_EOL;
         if (false === fwrite($fp, $logJson)) {
