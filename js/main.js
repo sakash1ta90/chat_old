@@ -11,9 +11,6 @@ const reloadLog = () => {
 
     // 最下部にスクロールさせる
     $('#talkField').animate({scrollTop: $('#end').offset().top}, 'fast');
-
-    // ポーリング
-    setTimeout(reloadLog, 5000); // リロード時間
 };
 
 // 投稿ボタンクリック
@@ -31,3 +28,6 @@ $('#greet').on('click', () => {
     $('#message').val('');
 });
 reloadLog();
+
+// ポーリング
+setInterval(reloadLog, 5000); // リロード時間
