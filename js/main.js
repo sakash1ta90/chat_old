@@ -8,9 +8,7 @@ const reloadLog = () => {
         type: 'html'
     };
     $.get(...getArgs);
-
-    // 最下部にスクロールさせる
-    $('#talkField').animate({scrollTop: $('#end').offset().top}, 'fast');
+    $('#talkField').animate({scrollTop: $('#result').height()}, 'fast');
 };
 
 // 投稿ボタンクリック
@@ -26,6 +24,7 @@ $('#greet').on('click', () => {
     }
     $.get(...getArgs);
     $('#message').val('');
+    $('#talkField').animate({scrollTop: $('#result').height()}, 'fast');
 });
 reloadLog();
 
