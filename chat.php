@@ -38,7 +38,7 @@ new class
                 header('Content-Type: text/javascript; charset=utf-8');
                 $ret = $get;
             } else {
-                $target = $this->user == $getAry['user'] ? 'right' : 'left';
+                $target = $this->user == urlencode($getAry['user']) ? 'right' : 'left';
                 $ret .= sprintf(self::RESPONSE_VIEW, $target, $getAry['user'], $target, $getAry['message']);
             }
         }
