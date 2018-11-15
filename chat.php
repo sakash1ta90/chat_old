@@ -17,12 +17,13 @@ new class
     {
         $this->mode = filter_input(INPUT_GET, 'mode', FILTER_VALIDATE_INT);
         $this->type = filter_input(INPUT_GET, 'type');
-        $this->user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_ENCODED);
+        $this->user = filter_input(INPUT_GET, 'user');
         echo $this->mode == 0 ? $this->writeChatLog() : $this->readChatLog();
     }
 
     /**
      * チャットログ読み込み
+     * @return string
      */
     public function readChatLog(): string
     {
@@ -38,7 +39,7 @@ new class
                 header('Content-Type: text/javascript; charset=utf-8');
                 $ret = $get;
             } else {
-                $target = $this->user == urlencode($getAry['user']) ? 'right' : 'left';
+                $target = $this->user == urldecode($getAry['user'] ?? '') ? 'right' : 'left';
                 $ret .= sprintf(self::RESPONSE_VIEW, $target, $getAry['user'], $target, $getAry['message']);
             }
         }
@@ -48,10 +49,11 @@ new class
 
     /**
      * チャットログ書き込み
+     * @return string
      */
     public function writeChatLog(): string
     {
-        $this->message = filter_input(INPUT_GET, 'message', FILTER_SANITIZE_ENCODED);
+        $this->message = filter_input(INPUT_GET, 'message');
 
         // ファイルをオープンできたか
         if (!$fp = fopen(self::LOG_FILE, 'a')) {
